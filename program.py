@@ -1,9 +1,19 @@
 
+import numpy
 from numpy import size
 import wx
+import wx.lib.plot as wxPyPlot #导入绘图模块,并命名为wxPyPlot
+
+def MyDataObject():
+ # 50个点的cos函数,用红色表示
+    data2 = 2.*numpy.pi*numpy.arange(100)/100.
+    data2.shape = (50,2)
+    data2[:,1] = numpy.cos(data2[:,0])
+    lines = wxPyPlot.PolySpline(data2, legend= 'Red Line', colour='red')
+    GraphTitle="Plot Data(Sin and Cos)"
+    return wxPyPlot.PlotGraphics(lines,GraphTitle, "X Axis", "Y Axis")
 
 class myFrame(wx.Frame):
-
     def __init__(self):
         super().__init__(parent=None, title="Program", size=(500, 600), pos=(200, 200))
         panel = wx.Panel(self)
@@ -36,13 +46,13 @@ class myFrame(wx.Frame):
         topsizer.Add(btnsizer)
 
         # 图片部分布局
-        img = wx.Image("1.jpeg", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        show3 = wx.StaticBitmap(self, -1, img, pos=(0,100), size=(500, 500))
-        imgsizer.Add(show3, 0)
-
+        self.CreateStatusBar(2)
+        # self.pc = wxPyPlot.PlotCanvas(self) #此处导入绘图面板
 
         panel.SetSizer(mainsizer)
 
+    def OnPlotDraw1(self, event): #绘图函数
+        self.pc.Draw(MyDataObject())
 
     # 定义点击事件，获取输入的数字
     def OnClick(self, event):
@@ -50,17 +60,8 @@ class myFrame(wx.Frame):
         print(input)
         self.inputNum.SetLabelText(input)
 
-
-class App(wx.App):
-
-    def OnInit(self):
-        frame = myFrame()
-        frame.Show()
-        return True
-
-    def OnExit(self):
-        return 0
-
 if __name__ == '__main__':
-    app = App()
+    app = wx.App()
+    frame = myFrame()
+    frame.Show()
     app.MainLoop()

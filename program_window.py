@@ -5,7 +5,6 @@ import wx
 import wx.lib.plot as wxPyPlot #导入绘图模块,并命名为wxPyPlot
 
 def MyDataObject():
- # 50个点的cos函数,用红色表示
     data2 = 2.*numpy.pi*numpy.arange(100)/100.
     data2.shape = (50,2)
     data2[:,1] = numpy.cos(data2[:,0])

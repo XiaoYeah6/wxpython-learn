@@ -46,8 +46,6 @@ class LineChart(wx.Panel):
         for i in range(3):
             dc.DrawText(years[i], i*100-13, -10)
  
- 
- 
     def DrawGrid(self, dc):
         dc.SetPen(wx.Pen('#d5d5d5'))
  
@@ -63,12 +61,10 @@ class LineChart(wx.Panel):
         dc.SetFont(font)
         dc.DrawText('Historical Prices', 90, 235)
  
- 
     def DrawData(self, dc):
         dc.SetPen(wx.Pen('#0ab1ff'))
         for i in range(10, 310, 10):
             dc.DrawSpline(data)
- 
  
 class LineChartExample(wx.Frame):
     def __init__(self, parent, id, title):
@@ -79,7 +75,11 @@ class LineChartExample(wx.Frame):
 
         topbox = wx.BoxSizer(wx.HORIZONTAL)
         lbl = wx.StaticText(panel, -1, "请输入：")
+        input = wx.TextCtrl(panel, -1)
+        btn = wx.Button(panel, -1, "确定")
         topbox.Add(lbl)
+        topbox.Add(input)
+        topbox.Add(btn)
  
         hbox = wx.BoxSizer(wx.VERTICAL)
         linechart = LineChart(panel)

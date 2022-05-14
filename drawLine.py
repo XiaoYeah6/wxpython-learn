@@ -1,5 +1,7 @@
+from tkinter.ttk import Style
 import wx
-
+from distutils.core import setup
+import py2exe
 
 class LineChart(wx.Panel): 
     def __init__(self, parent):
@@ -49,9 +51,20 @@ class LineChart(wx.Panel):
         # 船尾部
         dc.DrawLine(100, 20, 0, 60)
         dc.DrawLine(100, -20, 0, -60)
-        dc.DrawSpline()
+        
+        # 
+        dc.DrawLine(200, 20, 180, 60)
+        dc.DrawLine(180, 60, 0, 110)
+        dc.DrawLine(200, -20, 180, -60)
+        dc.DrawLine(180, -60, 0, -110)
 
+        # 
+        dc.DrawLine(160, 20, 120, 100)
+        dc.DrawLine(120, 20, 60, 140)
+        dc.DrawLine(160, -20, 120, -100)
+        dc.DrawLine(120, -20, 60, -140)
  
+        dc.FloodFill()
  
 class LineChartExample(wx.Frame):
     def __init__(self, parent, id, title):
@@ -87,3 +100,5 @@ class LineChartExample(wx.Frame):
 app = wx.App()
 LineChartExample(None, -1, 'A line chart')
 app.MainLoop()
+
+setup(windows=[{"script": "drawLine.py"}])
